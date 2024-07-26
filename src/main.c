@@ -11,7 +11,7 @@ struct Contato {
 };
 
 struct ListaContatos {
-    struct Contato *inicio;  
+    struct Contato *inicio;
     struct Contato *fim; 
     int tamanho;
 };
