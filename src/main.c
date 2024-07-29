@@ -4,13 +4,12 @@
 #include "lista.h"
 
 /* Criar um novo contato */
-/* TODO: Retornar um status para sucesso/falha */
 Contato *criaContato(char nome[], char email[], char telefone[]) {
     Contato *novoContato = (Contato *) malloc(sizeof(Contato));
     
     if (novoContato == NULL) {
         printf("Erro ao alocar memória para novo contato.\n");
-        /*return;*/
+        return NULL;
     }
     strcpy(novoContato->nome, nome);
     strcpy(novoContato->email, email);
@@ -23,40 +22,74 @@ Contato *criaContato(char nome[], char email[], char telefone[]) {
 int main() {
     ListaContatos lista;
     Contato *novoContato;
-
     char nome[100];
     char email[100];
     char telefone[20];
     char continuar;
+    int opcao;
 
     inicializaLista(&lista);
 
-    do {
+    while (1) {
+        printf("\nMenu:\n");
+        printf("1. Inserir contato\n");
+        printf("2. Remover contato\n");
+        printf("3. Consultar contato\n");
+        printf("4. Listar todos os contatos\n");
+        printf("5. Sair\n");
+        printf("Escolha uma opção: ");
+        scanf("%d", &opcao);
+        getchar(); 
 
-        printf("Digite o nome do contato: ");
-        fgets(nome, sizeof(nome), stdin);
-        nome[strcspn(nome, "\n")] = '\0';
-       
-        printf("Digite o e-mail do contato: ");
-        fgets(email, sizeof(email), stdin);
-        email[strcspn(email, "\n")] = '\0';
+        switch (opcao) {
+            case 1:
+                do {
+                    printf("Digite o nome do contato: ");
+                    fgets(nome, sizeof(nome), stdin);
+                    nome[strcspn(nome, "\n")] = '\0';
+                
+                    printf("Digite o e-mail do contato: ");
+                    fgets(email, sizeof(email), stdin);
+                    email[strcspn(email, "\n")] = '\0';
 
-        printf("Digite o telefone do contato: ");
-        fgets(telefone, sizeof(telefone), stdin);
-        telefone[strcspn(telefone, "\n")] = '\0'; 
+                    printf("Digite o telefone do contato: ");
+                    fgets(telefone, sizeof(telefone), stdin);
+                    telefone[strcspn(telefone, "\n")] = '\0'; 
 
-        novoContato = criaContato(nome, email, telefone);
-        if (novoContato != NULL) {
-            insereOrdenado(&lista, novoContato);
+                    novoContato = criaContato(nome, email, telefone);
+                    if (novoContato != NULL) {
+                        insereOrdenado(&lista, novoContato);
+                    }
+
+                    printf("Deseja inserir outro contato? (s/n): ");
+                    scanf(" %c", &continuar);
+                    getchar();
+
+                } while (continuar == 's' || continuar == 'S');
+                break;
+
+            case 2:
+                /* Remover contato */
+                break;
+
+            case 3:
+                /* Consultar contato específico */
+                break;
+
+            case 4:
+                /* Listar todos os contatos */
+                printf("\nLista de Contatos:\n");
+                imprimeContatos(&lista);
+                break;
+
+            case 5:
+                printf("\nSaindo...\n");
+                return 0;
+
+            default:
+                printf("Opção inválida. Tente novamente.\n");
+                break;
         }
-
-        printf("Deseja inserir outro contato? (s/n): ");
-        scanf(" %c", &continuar);
-        getchar();
-
-    } while (continuar == 's' || continuar == 'S');
-
-    /* Imprimir todos os contatos da lista */
-    printf("\nLista de Contatos:\n");
-    imprimeContatos(&lista);
+    }
+    return 0;
 }
