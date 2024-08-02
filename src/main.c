@@ -74,8 +74,17 @@ int main() {
 
             case 3:
                 /* Consultar contato específico */
-                break;
+                {
+                int pos;
+                printf("Digite a posição do contato a ser consultado: ");
+                scanf("%d", &pos);
+                getchar(); 
 
+                if (!consultaContato(&lista, pos)) {
+                    printf("Contato na posição %d não encontrado.\n", pos);
+                    }
+                }
+                break;
             case 4:
                 /* Listar todos os contatos */
                 printf("\nLista de Contatos:\n");

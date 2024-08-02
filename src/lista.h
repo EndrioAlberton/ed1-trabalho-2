@@ -36,7 +36,6 @@ int removeContato(ListaContatos *lista, int pos);
 */
 int consultaContato(ListaContatos *lista, int pos);
 
-
 /*
     Mostra todos os contatos da lista
 */
