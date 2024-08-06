@@ -70,21 +70,38 @@ int main() {
 
             case 2:
                 /* Remover contato */
+                {
+                    int pos;
+
+                    printf("\nLista de Contatos:\n");
+                    imprimeContatos(&lista);
+
+                    printf("Digite a posição do contato a ser removido (começando em 1): ");
+                    scanf("%d", &pos);
+                    getchar(); 
+
+                    if (!removeContato(&lista, pos - 1)) {
+                        printf("Não foi possível remover o contato na posição %d.\n", pos);
+                    }
+                    
+                    break;
+                }
                 break;
 
             case 3:
                 /* Consultar contato específico */
                 {
-                int pos;
-                printf("Digite a posição do contato a ser consultado: ");
-                scanf("%d", &pos);
-                getchar(); 
+                    int pos;
+                    printf("Digite a posição do contato a ser consultado (começando em 1): ");
+                    scanf("%d", &pos);
+                    getchar(); 
 
-                if (!consultaContato(&lista, pos)) {
-                    printf("Contato na posição %d não encontrado.\n", pos);
+                    if (!consultaContato(&lista, pos - 1)) {
+                        printf("Contato na posição %d não encontrado.\n", pos);
                     }
+                    
+                    break;
                 }
-                break;
             case 4:
                 /* Listar todos os contatos */
                 printf("\nLista de Contatos:\n");

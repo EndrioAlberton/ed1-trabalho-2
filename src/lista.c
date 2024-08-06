@@ -9,7 +9,6 @@ void inicializaLista(ListaContatos *lista) {
     lista->tamanho = 0;
 }
 
-/* TODO: Não insere ordenado */
 int insereOrdenado(ListaContatos *lista, Contato *c) {
     Contato *atual; 
 
@@ -51,12 +50,16 @@ int insereOrdenado(ListaContatos *lista, Contato *c) {
 
 void imprimeContatos(ListaContatos *lista) {
     Contato *atual;
+    int pos = 1;
     atual = lista->inicio;
+    printf("\n");
     while (atual != NULL) {
-        printf("Nome: %s\n", atual->nome);
-        printf("E-mail: %s\n", atual->email);
-        printf("Telefone: %s\n\n", atual->telefone);
+        printf("%d)\n", pos);
+        printf("  Nome: %s\n", atual->nome);
+        printf("  E-mail: %s\n", atual->email);
+        printf("  Telefone: %s\n\n", atual->telefone);
         atual = atual->prox;
+        pos++;
     }
 }
 
@@ -69,7 +72,7 @@ Contato* encontraContatoNaPosicao(ListaContatos *lista, int pos) {
     }
 
     atual = lista->inicio;
-    for (i = 0; i < pos-1; i++) {
+    for (i = 0; i < pos; i++) {
         atual = atual->prox;
     }
     return atual;
@@ -86,5 +89,56 @@ int consultaContato(ListaContatos *lista, int pos) {
     printf("Nome: %s\n", contato->nome);
     printf("Email: %s\n", contato->email);
     printf("Telefone: %s\n", contato->telefone);
+    return 1;
+}
+
+int removeContato(ListaContatos *lista, int pos) {
+    Contato *atual;
+    Contato *ant;
+    Contato *prox;
+    int i;
+
+    if (pos < 0 || pos >= lista->tamanho) {
+        return 0;
+    }
+
+    atual = lista->inicio;
+    for (i = 0; i < pos; i++) {
+        atual = atual->prox;
+    }
+
+    /* Caso especial para unico item na lista */
+    if (atual->prox == NULL && atual->ant == NULL) {
+        lista->inicio = NULL;
+        lista->fim = NULL;
+        lista->tamanho = 0;
+        free(atual);
+        return 1;
+    }
+
+
+    /* Troca os anteriores e próximos com navegabilidade segura */
+
+    if (atual->prox != NULL) {
+        atual->prox->ant = atual->ant;
+    }
+
+    if (atual->ant != NULL) {
+        atual->ant->prox = atual->prox;
+    }
+
+    /* Atualiza header */
+
+    if (atual->prox == NULL) {
+        lista->fim = atual->ant;
+    }
+
+    if (atual->ant == NULL) {
+        lista->inicio = atual->prox;
+    }
+
+    lista->tamanho--;
+    free(atual);
+
     return 1;
 }
