@@ -3,22 +3,6 @@
 #include <string.h>
 #include "lista.h"
 
-/* Criar um novo contato */
-Contato *criaContato(char nome[], char email[], char telefone[]) {
-    Contato *novoContato = (Contato *) malloc(sizeof(Contato));
-    
-    if (novoContato == NULL) {
-        printf("Erro ao alocar memória para novo contato.\n");
-        return NULL;
-    }
-    strcpy(novoContato->nome, nome);
-    strcpy(novoContato->email, email);
-    strcpy(novoContato->telefone, telefone);
-    novoContato->prox = NULL;
-    novoContato->ant = NULL;
-    return novoContato;
-}
-
 int main() {
     ListaContatos lista;
     Contato *novoContato;

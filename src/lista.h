@@ -15,6 +15,9 @@ typedef struct ListaContatos {
     int tamanho;
 } ListaContatos;
 
+/* Retorna um Contato */
+Contato *criaContato(char nome[], char email[], char telefone[]);
+
 /* Inicializa a lista */
 void inicializaLista(ListaContatos *lista);
 

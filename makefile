@@ -39,7 +39,6 @@ $(DIST_PATH)/%.o: $(SRC_PATH)/%.c $(SRC_PATH)/%.h
 $(DIST_PATH)/main.o: $(SRC_PATH)/main.c $(H_SOURCE)
 	$(CC) -o $@ $< $(CC_FLAGS)
 
-
 # Limpa a dist
 clean:
 	rm -rf $(DIST_PATH)/*.o $(DIST_PATH)/*~ $(BINARY_PATH)
